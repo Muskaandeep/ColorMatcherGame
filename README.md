@@ -1,64 +1,182 @@
-# ColorMatcherGame
+# Color Matcher Game
 
-An Engaging Game to match color patterns within a time limit.
+## Section 1 - Project Description
 
-### Section 1: Project Description
+### 1.1 Project
+**Color Matcher Game**
 
-**Project Description**  
-The Color Matcher Game is a memory and speed-based game where players match color patterns within a grid of tiles. The game's simple mechanics and visually engaging design make it suitable for players seeking a quick, stimulating experience. It aims to enhance memory, speed, and color recognition skills. Designed to be accessible on both desktop and mobile platforms, the game offers a user-friendly interface and challenging mechanics.
+### 1.2 Description
+The Color Matcher Game is a visually engaging and fast-paced game where players must match color patterns within a grid of colorful tiles. The game tests and enhances the player's memory, reflexes, and color recognition abilities. It is designed to be simple yet challenging, with increasing difficulty levels, a countdown timer, and power-ups like extra time and hints. The game is built using HTML, CSS, JavaScript, and Phaser.js.
 
-### Section 2: Overview
+### 1.3 Revision History
+| Date       | Comment          | Author |
+|------------|------------------|--------|
+| 2024-11-13 | Initial README setup | Muskaan|
 
-**Objective**  
-The primary goal of the Color Matcher Game is to provide a fun, accessible, and visually stimulating experience where players match color patterns within a limited time frame. This gameplay helps enhance color recognition and reflexes in an engaging way.
+---
 
-**Problem/Functionality**  
-In a fast-paced world, people often prefer quick, accessible gaming experiences. This game addresses that demand by providing easy-to-understand mechanics, a straightforward interface, and quick sessions that challenge color recognition and reflexes.
+## Section 2 - Overview
 
-**Scope**
+### 2.1 Purpose
+The Color Matcher Game aims to provide a fun, fast-paced experience where players match color patterns within a set time. It serves to enhance memory, speed, and color recognition skills while offering a simple, accessible gameplay experience. The game is targeted at casual gamers looking for a quick and challenging game.
 
-- **Included Features:**
-  - **Grid of Colorful Tiles:** Players interact with a grid filled with colored tiles, matching them to a pattern.
-  - **Timed Mode:** Players must complete matches within a time limit, creating urgency.
-  - **Increasing Difficulty:** Levels become more complex, adding colors and larger grids.
-  - **Scoring System:** Rewards players for speed and accuracy.
+### 2.2 Scope
+This module includes the grid-based tile matching game, featuring:
+- A grid filled with colorful tiles.
+- A time limit for each level.
+- Increasing difficulty with larger grids and additional colors.
+- A scoring system based on speed and accuracy.
+- Power-ups to assist players (Extra Time, Hint).
 
-- **Excluded Features:**
-  - Multiplayer or online gameplay.
-  - Advanced graphics and animations beyond a clean, minimalist design.
+### 2.3 Requirements
 
-### Section 3: System Architecture
+#### 2.3.1 Functional Requirements
+- **R1:** The game shall display a grid of tiles with different colors.
+- **R2:** The player shall match the tiles to a given color pattern within a time limit.
+- **R3:** The game shall allow the player to earn points based on accuracy and speed.
+- **R4:** The game shall support power-ups such as Extra Time and Hint.
 
-The game consists of three main components:
+#### 2.3.2 Non-Functional Requirements
+- **Performance:** The game shall be responsive and run on both desktop and mobile devices.
+- **Reliability:** The game shall have a high uptime and handle user interactions without crashing.
 
-| Component        | Description                                                                                       |
-|------------------|---------------------------------------------------------------------------------------------------|
-| User Interface   | Built with HTML and CSS to provide a visually appealing and responsive game layout.               |
-| Game Logic       | JavaScript with Phaser.js to manage game state, score tracking, timer functionality, and difficulty progression. |
-| Data Management  | Local storage for saving and retrieving high scores and player statistics.                        |
+#### 2.3.3 Technical Requirements
+- **Hardware:** The game shall run on any device with at least a 1 GHz processor and 2 GB of RAM.
+- **Software:** The game shall be built using HTML, CSS, JavaScript, and Phaser.js for game logic.
 
-### Section 4: Data Dictionary
+#### 2.3.4 Security Requirements
+- **Authentication:** No login is required for this game as it is for casual play.
+- **Data Encryption:** The game shall not store sensitive data; however, any data saved, such as high scores, will be encrypted.
 
-| Data Entity | Description                                | Type    |
-|-------------|--------------------------------------------|---------|
-| Tile        | Represents each colored tile in the grid   | Object  |
-| Pattern     | The specific color pattern to be matched   | Array   |
-| Score       | The current score of the player            | Integer |
-| TimeLeft    | Countdown timer for the current level      | Integer |
-| Difficulty  | Level of difficulty (affects grid size)    | Enum    |
-| PowerUp     | Available power-ups like Extra Time, Hint  | Enum    |
+#### 2.3.5 Estimates
+| Description                | Hrs. Est. |
+|----------------------------|-----------|
+| Design and Implementation   | 40 hrs    |
+| Testing and Bug Fixing      | 15 hrs    |
+| **Total**                   | **55 hrs** |
 
-### Section 5: Data Design
+#### 2.3.6 Traceability Matrix
+| SRS Requirement | SDD Module               |
+|-----------------|--------------------------|
+| **R1**          | 5.1.1 (Grid and Tile Design) |
+| **R2**          | 5.1.2 (Pattern Matching)  |
 
-- **Grid Data Structure:** The game grid is represented as a two-dimensional array of Tile objects, each containing properties such as color and position.
-- **Pattern Matching Array:** The Pattern array holds the sequence of colors that players must replicate. This array is dynamically generated based on difficulty.
-- **Score Calculation:** The score is updated based on the speed and accuracy of each pattern match. The score and time are stored temporarily during gameplay and persisted in local storage if it is a high score.
+---
 
-### Section 6: User Interface Design
+## Section 3 - System Architecture
 
-The UI is designed to be simple and visually engaging, with clear sections for:
+### 3.1 Overview
+The system is composed of three main components:
+- **User Interface:** HTML and CSS for layout and style.
+- **Game Logic:** JavaScript and Phaser.js to handle game mechanics, scoring, and difficulty progression.
+- **Data Management:** Uses local storage to store high scores and player statistics.
 
-- **Game Grid:** Displays colorful tiles in a dynamic grid layout.
-- **Timer Display:** Shows the countdown timer for each level.
-- **Score Display:** Tracks and shows the player's current score.
-- **Power-Ups and Controls:** Allows players to access power-ups like "Extra Time" and "Hint," as well as game control buttons like "Restart" and "Pause."
+### 3.2 Architectural Diagrams
+
+#### Component Diagram
+
+| Component       | Description                                    |
+|-----------------|------------------------------------------------|
+| **User Interface** | Displays the game grid, score, timer, and controls. |
+| **Game Logic** | Controls the gameplay, scoring, and progression. |
+| **Data Management** | Stores high scores locally.                |
+
+---
+
+## Section 4 - Data Dictionary
+
+| Data Entity   | Description                                      | Type    |
+|---------------|--------------------------------------------------|---------|
+| **Tile**      | Represents each colored tile in the grid        | Object  |
+| **Pattern**   | The specific color pattern to be matched        | Array   |
+| **Score**     | The current score of the player                  | Integer |
+| **TimeLeft**  | Countdown timer for the current level            | Integer |
+| **Difficulty**| Level of difficulty (affects grid size)          | Enum    |
+| **PowerUp**   | Available power-ups like Extra Time, Hint        | Enum    |
+
+---
+
+## Section 5 - Data Design
+
+### 5.1 Persistent/Static Data
+- **High Scores:** Stored locally using the browser's localStorage.
+- **Pattern Data:** A dynamically generated array of color patterns based on the current level.
+
+#### 5.1.1 Dataset
+
+| User         | Attributes: UserID (PK), Username, HighScore  |
+|--------------|-----------------------------------------------|
+| **Relationships** | One-to-Many with Scores                   |
+
+---
+
+## Section 6 - User Interface Design
+
+### 6.1 User Interface Design Overview
+The UI is clean, simple, and intuitive:
+- **Game Grid:** A 4x4 grid for easy mode, expanding to 6x6 for hard mode.
+- **Timer Display:** Countdown timer shows the time remaining for each level.
+- **Score Display:** Displays the current score of the player.
+- **Power-Ups:** Icons for Extra Time and Hint, allowing the player to use power-ups.
+
+### 6.2 User Interface Navigation Flow
+1. **Start Screen → Choose Difficulty → Start Game**
+2. **Game Screen → Match Colors → Game Over → View High Scores**
+
+### 6.3 Use Cases / User Function Description
+- **Match Pattern:** Player matches the color pattern shown by clicking on tiles.
+- **Use Power-Up:** Player clicks on the power-up button to get an extra hint or extra time.
+
+---
+
+## Section 7 - Testing
+
+### 7.1 Test Plan Creation
+- **Objective:** Ensure all game functionality works, including pattern matching, timer, scoring, and power-ups.
+- **Scope:** Test all major features like grid rendering, timer countdown, and high score saving.
+
+#### Test Environment
+
+| Test Case    | Input        | Expected Output            | Actual Output |
+|--------------|--------------|----------------------------|---------------|
+| **Grid Test**| 4x4 Grid     | 16 tiles on screen         | Pass          |
+| **Timer Test**| 30 seconds   | Countdown timer            | Pass          |
+
+---
+
+## Section 8 - Monitoring
+
+### Key Metrics to Monitor
+- **Performance Metrics:** Track game loading times, tile rendering speed.
+- **Error Metrics:** Log any JavaScript errors or UI glitches.
+- **Availability Metrics:** Ensure that the game runs without downtime.
+
+---
+
+## Section 9 - Other Interfaces
+
+### 9.1 External Interface
+- **LocalStorage:** Used for saving high scores and player data.
+
+---
+
+## Section 10 - Extra Design Features / Outstanding Issues
+
+### Future Feature
+- Multiplayer mode can be added in the future.
+
+### Outstanding Issue
+- Ensure that the game handles high scores when the player uses different browsers.
+
+---
+
+## Section 11 – References
+- [Phaser.js Documentation](https://phaser.io/)
+- [HTML5 Game Development](https://www.html5gamedevs.com/)
+
+---
+
+## Section 12 – Glossary
+
+- **Tile:** A square on the game grid that can hold a color.
+- **Pattern:** The color combination that the player needs to match.
