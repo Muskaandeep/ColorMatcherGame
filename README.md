@@ -51,9 +51,9 @@ This module includes the grid-based tile matching game, featuring:
 #### 2.3.5 Estimates
 | Description                | Hrs. Est. |
 |----------------------------|-----------|
-| Design and Implementation   | 40 hrs    |
-| Testing and Bug Fixing      | 15 hrs    |
-| **Total**                   | **55 hrs** |
+| Design and Implementation   | 16 hrs    |
+| Testing and Bug Fixing      | 5 hrs    |
+| **Total**                   | **21 hrs** |
 
 #### 2.3.6 Traceability Matrix
 | SRS Requirement | SDD Module               |
