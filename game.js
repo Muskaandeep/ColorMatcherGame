@@ -3,30 +3,117 @@ var board = [];
 var rows = 9;
 var columns = 9;
 var score = 0;
-var turns = 30; // Set initial turns
-
+var turns = 30; // Default turns
 var currTile;
 var otherTile;
+var difficulty = "Medium"; // Default difficulty
 
-window.onload = function() {
+// Event listener for page load
+window.onload = function () {
+    showStartMenu();
+};
+
+function showStartMenu() {
+    const mainMenu = document.createElement("div");
+    mainMenu.id = "mainMenu";
+
+    const title = document.createElement("h1");
+    title.innerText = "Block Match Game";
+
+    const startButton = document.createElement("button");
+    startButton.innerText = "Start New Game";
+    startButton.onclick = startGameMenu;
+
+    const settingsButton = document.createElement("button");
+    settingsButton.innerText = "Settings";
+    settingsButton.onclick = showSettings;
+
+    mainMenu.appendChild(title);
+    mainMenu.appendChild(startButton);
+    mainMenu.appendChild(settingsButton);
+    document.body.appendChild(mainMenu);
+}
+
+function startGameMenu() {
+    // Clear menu and initialize game
+    document.body.innerHTML = `
+        <h1>Score: <span id="score">0</span></h1>
+        <h1>Turns: <span id="turns">${turns}</span></h1>
+        <h2>Difficulty: <span id="difficulty">${difficulty}</span></h2>
+        <div id="board"></div>
+        <button id="endGameButton">End Game</button>
+    `;
+
+    document.getElementById("endGameButton").onclick = endGame; // Button to end the game
+
     startGame();
 
     // Game loop: Check and handle matches every 1/10th of a second
-    window.setInterval(function() {
+    window.setInterval(function () {
         crushBlock();
         slideBlock();
         generateBlock();
     }, 100);
+}
 
-    // Display initial turn count
-    document.getElementById("turns").innerText = turns;
-};
+function showSettings() {
+    document.body.innerHTML = "";
+
+    const settingsMenu = document.createElement("div");
+    settingsMenu.id = "settingsMenu";
+
+    const settingsTitle = document.createElement("h1");
+    settingsTitle.innerText = "Settings";
+
+    const difficultyLabel = document.createElement("h2");
+    difficultyLabel.innerText = "Select Difficulty:";
+
+    const difficultyOptions = ["Easy", "Medium", "Hard"];
+    difficultyOptions.forEach((level) => {
+        const button = document.createElement("button");
+        button.innerText = level;
+        button.onclick = function () {
+            difficulty = level;
+            setDifficulty(level);
+        };
+        settingsMenu.appendChild(button);
+    });
+
+    const backButton = document.createElement("button");
+    backButton.innerText = "Back to Menu";
+    backButton.onclick = function () {
+        document.body.innerHTML = "";
+        showStartMenu();
+    };
+
+    settingsMenu.appendChild(settingsTitle);
+    settingsMenu.appendChild(difficultyLabel);
+    settingsMenu.appendChild(backButton);
+    document.body.appendChild(settingsMenu);
+}
+
+function setDifficulty(level) {
+    // Show selected difficulty level
+    const difficultySpan = document.getElementById("difficulty");
+    difficultySpan.innerText = level;
+
+    // Keep the number of rows and columns the same for all difficulties
+    if (level === "Easy") {
+        turns = 40; // More turns for easy difficulty
+    } else if (level === "Medium") {
+        turns = 30; // Default turns for medium difficulty
+    } else if (level === "Hard") {
+        turns = 20; // Fewer turns for hard difficulty
+    }
+}
 
 function randomBlock() {
     return blocks[Math.floor(Math.random() * blocks.length)];
 }
 
 function startGame() {
+    board = [];  // Reset board before starting a new game
+
     for (let r = 0; r < rows; r++) {
         let row = [];
         for (let c = 0; c < columns; c++) {
@@ -94,11 +181,9 @@ function dragEnd() {
 
         let validMove = checkValid();
         if (!validMove) {
-            // Revert move
             currTile.src = currImg;
             otherTile.src = otherImg;
         } else {
-            // Decrease turns if valid move
             turns--;
             document.getElementById("turns").innerText = turns;
             if (turns <= 0) {
@@ -129,7 +214,6 @@ function crushThree() {
             }
         }
     }
-
     for (let c = 0; c < columns; c++) {
         for (let r = 0; r < rows - 2; r++) {
             let block1 = board[r][c];
@@ -146,6 +230,7 @@ function crushThree() {
 }
 
 function crushFour() {
+    // Horizontal 4-match
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns - 3; c++) {
             let block1 = board[r][c];
@@ -158,12 +243,11 @@ function crushFour() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 score += 20;
-                turns++; // Extra turn for a four-match
-                document.getElementById("turns").innerText = turns;
             }
         }
     }
 
+    // Vertical 4-match
     for (let c = 0; c < columns; c++) {
         for (let r = 0; r < rows - 3; r++) {
             let block1 = board[r][c];
@@ -176,14 +260,13 @@ function crushFour() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 score += 20;
-                turns++; // Extra turn for a four-match
-                document.getElementById("turns").innerText = turns;
             }
         }
     }
 }
 
 function crushFive() {
+    // Horizontal 5-match
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns - 4; c++) {
             let block1 = board[r][c];
@@ -197,13 +280,12 @@ function crushFive() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 block5.src = "./images/blank.jpg";
-                score += 25;
-                turns++; // Extra turn for a five-match
-                document.getElementById("turns").innerText = turns;
+                score += 30;
             }
         }
     }
 
+    // Vertical 5-match
     for (let c = 0; c < columns; c++) {
         for (let r = 0; r < rows - 4; r++) {
             let block1 = board[r][c];
@@ -217,44 +299,45 @@ function crushFive() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 block5.src = "./images/blank.jpg";
-                score += 25;
-                turns++; // Extra turn for a five-match
-                document.getElementById("turns").innerText = turns;
+                score += 30;
             }
         }
     }
 }
 
-function checkValid() {
-    return true; // Simplified for this example; Add match checking here if necessary
-}
-
 function slideBlock() {
+    // Make blocks fall and fill empty spaces
     for (let c = 0; c < columns; c++) {
-        let ind = rows - 1;
+        let emptySpace = -1;
         for (let r = rows - 1; r >= 0; r--) {
-            if (!board[r][c].src.includes("blank")) {
-                board[ind][c].src = board[r][c].src;
-                ind--;
+            let block = board[r][c];
+            if (block.src.includes("blank")) {
+                if (emptySpace === -1) {
+                    emptySpace = r;
+                }
+            } else if (emptySpace !== -1) {
+                let emptyBlock = board[emptySpace][c];
+                emptyBlock.src = block.src;
+                block.src = "./images/blank.jpg";
+                emptySpace--;
             }
-        }
-        for (let r = ind; r >= 0; r--) {
-            board[r][c].src = "./images/blank.jpg";
         }
     }
 }
 
 function generateBlock() {
     for (let c = 0; c < columns; c++) {
-        for (let r = 0; r < rows; r++) {
-            if (board[r][c].src.includes("blank")) {
-                board[r][c].src = "./images/" + randomBlock() + ".jpg";
+        for (let r = rows - 1; r >= 0; r--) {
+            let block = board[r][c];
+            if (block.src.includes("blank")) {
+                block.src = "./images/" + randomBlock() + ".jpg";
             }
         }
     }
 }
 
 function endGame() {
-    alert("Game Over! Your score is: " + score);
-    location.reload();
+    alert("Game Over! Final Score: " + score);
+    document.body.innerHTML = "";
+    showStartMenu();
 }

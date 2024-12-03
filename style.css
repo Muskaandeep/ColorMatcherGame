@@ -4,20 +4,91 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: rgb(76, 42, 52);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: rgb(222, 139, 160);
 }
 
 #board {
-    width: 450px;
-    height: 450px;
+    width: 80%;
+    max-width: 450px;
+    height: auto;
+    aspect-ratio: 1;
     background-color: rgb(222, 139, 160);
     border: 5px solid rgb(76, 42, 52);
     border-radius: 10px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 #board img {
     width: 50px;
     height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#board img:hover {
+    transform: scale(1.1);
+}
+
+#score, #turns {
+    font-size: calc(16px + 1vw); /* Responsive font size */
+    margin: 10px 0;
+}
+
+button#end-game {
+    background-color: rgb(220, 53, 69);
+}
+
+button#end-game:hover {
+    background-color: rgb(255, 82, 94);
+}
+
+#landing-page h1, #settings-page h1, #game-page h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+#settings-page select {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+#settings-page button {
+    background-color: rgb(40, 167, 69);
+}
+
+#settings-page button:hover {
+    background-color: rgb(67, 160, 71);
 }
