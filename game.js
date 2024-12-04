@@ -7,12 +7,72 @@ var turns = 30; // Default turns
 var currTile;
 var otherTile;
 var difficulty = "Medium"; // Default difficulty
+var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || []; // Initialize leaderboard from localStorage
 
 
 // Event listener for page load
 window.onload = function () {
     showStartMenu();
 };
+
+
+// Show leaderboard
+function showLeaderboard() {
+    document.body.innerHTML = `<h1>Leaderboard</h1>`;
+    const leaderboardContainer = document.createElement("div");
+    leaderboardContainer.id = "leaderboard";
+
+    // Sort leaderboard by score in descending order
+    leaderboard.sort((a, b) => b.score - a.score);
+
+    // Display top 10 scores
+    const leaderboardList = document.createElement("ol");
+    leaderboard.forEach((entry, index) => {
+        if (index < 10) { // Show top 10 only
+            const listItem = document.createElement("li");
+            listItem.innerText = `${entry.name}: ${entry.score}`;
+            leaderboardList.appendChild(listItem);
+        }
+    });
+
+    const resetButton = document.createElement("button");
+    resetButton.innerText = "Reset Leaderboard";
+    resetButton.onclick = resetLeaderboard;
+
+    const backButton = document.createElement("button");
+    backButton.innerText = "Back to Main Menu";
+    backButton.onclick = showStartMenu;
+
+    leaderboardContainer.appendChild(leaderboardList);
+    leaderboardContainer.appendChild(resetButton);
+    leaderboardContainer.appendChild(backButton);
+    document.body.appendChild(leaderboardContainer);
+}
+
+// Reset leaderboard
+function resetLeaderboard() {
+    leaderboard = [];
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    alert("Leaderboard reset!");
+    showLeaderboard();
+}
+
+// Update leaderboard
+function updateLeaderboard(name, score) {
+    leaderboard.push({ name, score });
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+// End game function: Prompt for name and show leaderboard
+function endGame() {
+    const playerName = prompt("Game Over! Enter your name:");
+    if (playerName) {
+        updateLeaderboard(playerName, score);
+    }
+
+    // Show leaderboard after saving the score
+    showLeaderboard();
+}
 
 function showStartMenu() {
     const mainMenu = document.createElement("div");
@@ -25,10 +85,15 @@ function showStartMenu() {
     startButton.innerText = "Start New Game";
     startButton.onclick = startGameMenu;
 
-    
+    const leaderboardButton = document.createElement("button");
+    leaderboardButton.innerText = "View Leaderboard";
+    leaderboardButton.onclick = showLeaderboard;
+
 
     mainMenu.appendChild(title);
     mainMenu.appendChild(startButton);
+    mainMenu.appendChild(leaderboardButton);
+
 
     document.body.appendChild(mainMenu);
 }
