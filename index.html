@@ -8,33 +8,5 @@
     <script src="game.js" defer></script>
 </head>
 <body>
-    <!-- Landing Page -->
-    <div id="landing-page" class="center-screen">
-        <h1>Block Match Game</h1>
-        <button onclick="startNewGame()"> Start New Game</button>
-        <button onclick="showSettings()">Settings</button>
-    </div>
-
-    <!-- Settings Page -->
-    <div id="settings-page" class="hidden center-screen">
-        <h1>Settings</h1>
-        <label for="difficulty">Select Difficulty:</label>
-        <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium" selected>Medium</option>
-            <option value="hard">Hard</option>
-        </select>
-        <br><br>
-        <button onclick="saveSettings()">Save and Back</button>
-    </div>
-
-    <!-- Game Page -->
-    <div id="game-page" class="hidden">
-        <h1>Score: <span id="score">0</span></h1>
-        <h1>Turns: <span id="turns">30</span></h1>
-        <div id="board"></div>
-        <button onclick="endGame()" id="end-game">End Game</button>
-        <button onclick="backToLanding()">Back to Menu</button>
-    </div>
 </body>
 </html>

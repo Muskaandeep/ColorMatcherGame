@@ -8,6 +8,7 @@ var currTile;
 var otherTile;
 var difficulty = "Medium"; // Default difficulty
 
+
 // Event listener for page load
 window.onload = function () {
     showStartMenu();
@@ -24,13 +25,11 @@ function showStartMenu() {
     startButton.innerText = "Start New Game";
     startButton.onclick = startGameMenu;
 
-    const settingsButton = document.createElement("button");
-    settingsButton.innerText = "Settings";
-    settingsButton.onclick = showSettings;
+    
 
     mainMenu.appendChild(title);
     mainMenu.appendChild(startButton);
-    mainMenu.appendChild(settingsButton);
+
     document.body.appendChild(mainMenu);
 }
 
@@ -56,56 +55,9 @@ function startGameMenu() {
     }, 100);
 }
 
-function showSettings() {
-    document.body.innerHTML = "";
 
-    const settingsMenu = document.createElement("div");
-    settingsMenu.id = "settingsMenu";
 
-    const settingsTitle = document.createElement("h1");
-    settingsTitle.innerText = "Settings";
 
-    const difficultyLabel = document.createElement("h2");
-    difficultyLabel.innerText = "Select Difficulty:";
-
-    const difficultyOptions = ["Easy", "Medium", "Hard"];
-    difficultyOptions.forEach((level) => {
-        const button = document.createElement("button");
-        button.innerText = level;
-        button.onclick = function () {
-            difficulty = level;
-            setDifficulty(level);
-        };
-        settingsMenu.appendChild(button);
-    });
-
-    const backButton = document.createElement("button");
-    backButton.innerText = "Back to Menu";
-    backButton.onclick = function () {
-        document.body.innerHTML = "";
-        showStartMenu();
-    };
-
-    settingsMenu.appendChild(settingsTitle);
-    settingsMenu.appendChild(difficultyLabel);
-    settingsMenu.appendChild(backButton);
-    document.body.appendChild(settingsMenu);
-}
-
-function setDifficulty(level) {
-    // Show selected difficulty level
-    const difficultySpan = document.getElementById("difficulty");
-    difficultySpan.innerText = level;
-
-    // Keep the number of rows and columns the same for all difficulties
-    if (level === "Easy") {
-        turns = 40; // More turns for easy difficulty
-    } else if (level === "Medium") {
-        turns = 30; // Default turns for medium difficulty
-    } else if (level === "Hard") {
-        turns = 20; // Fewer turns for hard difficulty
-    }
-}
 
 function randomBlock() {
     return blocks[Math.floor(Math.random() * blocks.length)];
@@ -210,7 +162,7 @@ function crushThree() {
                 block1.src = "./images/blank.jpg";
                 block2.src = "./images/blank.jpg";
                 block3.src = "./images/blank.jpg";
-                score += 10;
+                score += 3;
             }
         }
     }
@@ -223,7 +175,7 @@ function crushThree() {
                 block1.src = "./images/blank.jpg";
                 block2.src = "./images/blank.jpg";
                 block3.src = "./images/blank.jpg";
-                score += 10;
+                score += 3;
             }
         }
     }
@@ -242,7 +194,7 @@ function crushFour() {
                 block2.src = "./images/blank.jpg";
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
-                score += 20;
+                score += 10;
             }
         }
     }
@@ -259,7 +211,7 @@ function crushFour() {
                 block2.src = "./images/blank.jpg";
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
-                score += 20;
+                score += 10;
             }
         }
     }
@@ -280,7 +232,7 @@ function crushFive() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 block5.src = "./images/blank.jpg";
-                score += 30;
+                score += 20;
             }
         }
     }
@@ -299,7 +251,7 @@ function crushFive() {
                 block3.src = "./images/blank.jpg";
                 block4.src = "./images/blank.jpg";
                 block5.src = "./images/blank.jpg";
-                score += 30;
+                score += 20;
             }
         }
     }
@@ -340,4 +292,87 @@ function endGame() {
     alert("Game Over! Final Score: " + score);
     document.body.innerHTML = "";
     showStartMenu();
+}
+// Leaderboard: Initialize empty or load from local storage
+var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+// Function to display the leaderboard
+function showLeaderboard() {
+    document.body.innerHTML = `<h1>Leaderboard</h1>`;
+    const leaderboardContainer = document.createElement("div");
+    leaderboardContainer.id = "leaderboard";
+
+    // Sort leaderboard by score in descending order
+    leaderboard.sort((a, b) => b.score - a.score);
+
+    // Display top 10 scores
+    const leaderboardList = document.createElement("ol");
+    leaderboard.forEach((entry, index) => {
+        if (index < 10) { // Show top 10 only
+            const listItem = document.createElement("li");
+            listItem.innerText = `${entry.name}: ${entry.score}`;
+            leaderboardList.appendChild(listItem);
+        }
+    });
+
+    const resetButton = document.createElement("button");
+    resetButton.innerText = "Reset Leaderboard";
+    resetButton.onclick = resetLeaderboard;
+
+    const backButton = document.createElement("button");
+    backButton.innerText = "Back to Main Menu";
+    backButton.onclick = showStartMenu;
+
+    leaderboardContainer.appendChild(leaderboardList);
+    leaderboardContainer.appendChild(resetButton);
+    leaderboardContainer.appendChild(backButton);
+    document.body.appendChild(leaderboardContainer);
+}
+
+// Function to reset the leaderboard
+function resetLeaderboard() {
+    leaderboard = [];
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    alert("Leaderboard reset!");
+    showLeaderboard();
+}
+
+// Function to update leaderboard
+function updateLeaderboard(name, score) {
+    leaderboard.push({ name, score });
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+// Modified endGame to include leaderboard functionality
+function endGame() {
+    const playerName = prompt("Game Over! Enter your name:");
+    if (playerName) {
+        updateLeaderboard(playerName, score);
+    }
+
+    // Show leaderboard after saving the score
+    showLeaderboard();
+}
+
+// Include a "View Leaderboard" button in the main menu
+function showStartMenu() {
+    const mainMenu = document.createElement("div");
+    mainMenu.id = "mainMenu";
+
+    const title = document.createElement("h1");
+    title.innerText = "Block Match Game";
+
+    const startButton = document.createElement("button");
+    startButton.innerText = "Start New Game";
+    startButton.onclick = startGameMenu;
+
+    const leaderboardButton = document.createElement("button");
+    leaderboardButton.innerText = "View Leaderboard";
+    leaderboardButton.onclick = showLeaderboard;
+
+    mainMenu.appendChild(title);
+    mainMenu.appendChild(startButton);
+    mainMenu.appendChild(leaderboardButton);
+
+    document.body.appendChild(mainMenu);
 }

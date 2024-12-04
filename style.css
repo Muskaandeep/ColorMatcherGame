@@ -61,7 +61,7 @@ button:hover {
     transform: scale(1.1);
 }
 
-#score, #turns {
+#score{
     font-size: calc(16px + 1vw); /* Responsive font size */
     margin: 10px 0;
 }
@@ -74,21 +74,3 @@ button#end-game:hover {
     background-color: rgb(255, 82, 94);
 }
 
-#landing-page h1, #settings-page h1, #game-page h1 {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-#settings-page select {
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px 0;
-}
-
-#settings-page button {
-    background-color: rgb(40, 167, 69);
-}
-
-#settings-page button:hover {
-    background-color: rgb(67, 160, 71);
-}
