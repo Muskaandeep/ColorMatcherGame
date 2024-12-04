@@ -1,182 +1,176 @@
-# Color Matcher Game
+# Color Matcher Game 🎮
 
-## Section 1 - Project Description
+## Project Description 📄
 
-### 1.1 Project
-**Color Matcher Game**
+### 1.1 Project Name: 
+**Color Matcher Game** 🎨
 
-### 1.2 Description
-The Color Matcher Game is a visually engaging and fast-paced game where players must match color patterns within a grid of colorful tiles. The game tests and enhances the player's memory, reflexes, and color recognition abilities. It is designed to be simple yet challenging, with increasing difficulty levels, a countdown timer, and power-ups like extra time and hints. The game is built using HTML, CSS, JavaScript, and Phaser.js.
+### 1.2 Description: 
+The Color Matcher Game is a web-based puzzle game where players match colorful blocks in a grid. The game features different difficulty levels, a leaderboard, and the option to save top scores in the local storage. The goal is to match blocks by swapping adjacent tiles and crushing three or more matching blocks to score points. The game ends when the player runs out of turns, and their score is saved to the leaderboard. 🏆
 
-### 1.3 Revision History
-| Date       | Comment          | Author |
-|------------|------------------|--------|
-| 2024-11-13 | Initial README setup | Muskaan|
+### 1.3 Revision History 🔄:
 
----
-
-## Section 2 - Overview
-
-### 2.1 Purpose
-The Color Matcher Game aims to provide a fun, fast-paced experience where players match color patterns within a set time. It serves to enhance memory, speed, and color recognition skills while offering a simple, accessible gameplay experience. The game is targeted at casual gamers looking for a quick and challenging game.
-
-### 2.2 Scope
-This module includes the grid-based tile matching game, featuring:
-- A grid filled with colorful tiles.
-- A time limit for each level.
-- Increasing difficulty with larger grids and additional colors.
-- A scoring system based on speed and accuracy.
-- Power-ups to assist players (Extra Time, Hint).
-
-### 2.3 Requirements
-
-#### 2.3.1 Functional Requirements
-- **R1:** The game shall display a grid of tiles with different colors.
-- **R2:** The player shall match the tiles to a given color pattern within a time limit.
-- **R3:** The game shall allow the player to earn points based on accuracy and speed.
-- **R4:** The game shall support power-ups such as Extra Time and Hint.
-
-#### 2.3.2 Non-Functional Requirements
-- **Performance:** The game shall be responsive and run on both desktop and mobile devices.
-- **Reliability:** The game shall have a high uptime and handle user interactions without crashing.
-
-#### 2.3.3 Technical Requirements
-- **Hardware:** The game shall run on any device with at least a 1 GHz processor and 2 GB of RAM.
-- **Software:** The game shall be built using HTML, CSS, JavaScript, and Phaser.js for game logic.
-
-#### 2.3.4 Security Requirements
-- **Authentication:** No login is required for this game as it is for casual play.
-- **Data Encryption:** The game shall not store sensitive data; however, any data saved, such as high scores, will be encrypted.
-
-#### 2.3.5 Estimates
-| Description                | Hrs. Est. |
-|----------------------------|-----------|
-| Design and Implementation   | 16 hrs    |
-| Testing and Bug Fixing      | 5 hrs    |
-| **Total**                   | **21 hrs** |
-
-#### 2.3.6 Traceability Matrix
-| SRS Requirement | SDD Module               |
-|-----------------|--------------------------|
-| **R1**          | 5.1.1 (Grid and Tile Design) |
-| **R2**          | 5.1.2 (Pattern Matching)  |
+| **Date**       | **Comment**  | **Author** |
+|----------------|-------------|------------|
+| 2024-12-04     | Initial draft | Muskaan   |
 
 ---
 
-## Section 3 - System Architecture
+## Section 2: Overview 🌍
 
-### 3.1 Overview
-The system is composed of three main components:
-- **User Interface:** HTML and CSS for layout and style.
-- **Game Logic:** JavaScript and Phaser.js to handle game mechanics, scoring, and difficulty progression.
-- **Data Management:** Uses local storage to store high scores and player statistics.
+### 2.1 Purpose:
+This module focuses on the core gameplay and leaderboard functionality. The intended audience is players who enjoy casual puzzle games. The module provides interaction with the game board, the logic for matching and crushing blocks, and saving player scores. 💡
 
-### 3.2 Architectural Diagrams
+### 2.2 Scope:
+This module includes the implementation of the game board, drag-and-drop mechanics for matching blocks, a scoring system, difficulty adjustment, a leaderboard, and game reset functionality. It will interact with local storage for saving scores. 🔄
 
-#### Component Diagram
+### 2.3 Requirements:
 
-| Component       | Description                                    |
-|-----------------|------------------------------------------------|
-| **User Interface** | Displays the game grid, score, timer, and controls. |
-| **Game Logic** | Controls the gameplay, scoring, and progression. |
-| **Data Management** | Stores high scores locally.                |
+#### 2.3.1 Functional Requirements:
 
----
+- **R1:** The system shall allow users to start a new game. 🆕
+- **R2:** The system shall allow users to select difficulty (Easy, Medium, Hard). 🎮
+- **R3:** The system shall allow users to view the leaderboard. 🏅
+- **R4:** The system shall allow users to reset the leaderboard. 🔄
+- **R5:** The system shall allow users to drag and drop blocks to match adjacent tiles. 🧩
+- **R6:** The system shall update the score and turns remaining after each valid move. 📊
 
-## Section 4 - Data Dictionary
+#### 2.3.2 Non-Functional Requirements:
 
-| Data Entity   | Description                                      | Type    |
-|---------------|--------------------------------------------------|---------|
-| **Tile**      | Represents each colored tile in the grid        | Object  |
-| **Pattern**   | The specific color pattern to be matched        | Array   |
-| **Score**     | The current score of the player                  | Integer |
-| **TimeLeft**  | Countdown timer for the current level            | Integer |
-| **Difficulty**| Level of difficulty (affects grid size)          | Enum    |
-| **PowerUp**   | Available power-ups like Extra Time, Hint        | Enum    |
+- **Performance:** The system shall handle up to 50 concurrent players without noticeable performance degradation. ⚡
+- **Reliability:** The system shall have a 99.9% uptime, with proper error handling for unexpected behaviors. 🛠️
+- **Usability:** The game interface shall be intuitive and accessible for new players. 🤗
 
----
+#### 2.3.3 Technical Requirements:
 
-## Section 5 - Data Design
+- **Hardware:** The game shall run on browsers with modern web standards. 🌐
+- **Software:** The game shall be developed using HTML5, CSS, and JavaScript. 💻
+- **Storage:** Player scores shall be stored locally using the browser's localStorage API. 🗃️
 
-### 5.1 Persistent/Static Data
-- **High Scores:** Stored locally using the browser's localStorage.
-- **Pattern Data:** A dynamically generated array of color patterns based on the current level.
+#### 2.3.4 Security Requirements:
 
-#### 5.1.1 Dataset
+- **Data Encryption:** All sensitive data (player names and scores) shall be stored securely using localStorage encryption methods if necessary. 🔐
+- **Authentication:** No authentication is required, as the game is casual and does not store personal data on the server. 👤
 
-| User         | Attributes: UserID (PK), Username, HighScore  |
-|--------------|-----------------------------------------------|
-| **Relationships** | One-to-Many with Scores                   |
+#### 2.3.5 Estimates:
 
----
+| **Description**                  | **Hrs. Est.** |
+|-----------------------------------|---------------|
+| Implement game board logic        | 8             |
+| Develop drag-and-drop mechanics   | 6             |
+| Leaderboard functionality         | 4             |
+| Implement difficulty levels       | 3             |
+| User interface design             | 5             |
+| **Total**                         | 26            |
 
-## Section 6 - User Interface Design
+#### 2.3.6 Traceability Matrix:
 
-### 6.1 User Interface Design Overview
-The UI is clean, simple, and intuitive:
-- **Game Grid:** A 4x4 grid for easy mode, expanding to 6x6 for hard mode.
-- **Timer Display:** Countdown timer shows the time remaining for each level.
-- **Score Display:** Displays the current score of the player.
-- **Power-Ups:** Icons for Extra Time and Hint, allowing the player to use power-ups.
-
-### 6.2 User Interface Navigation Flow
-1. **Start Screen → Choose Difficulty → Start Game**
-2. **Game Screen → Match Colors → Game Over → View High Scores**
-
-### 6.3 Use Cases / User Function Description
-- **Match Pattern:** Player matches the color pattern shown by clicking on tiles.
-- **Use Power-Up:** Player clicks on the power-up button to get an extra hint or extra time.
+| **SRS Requirement** | **SDD Module**           |
+|---------------------|--------------------------|
+| R1                  | 5.1.1 (Game Start)       |
+| R2                  | 5.1.2 (Difficulty Levels)|
+| R3                  | 5.1.3 (Leaderboard)      |
 
 ---
 
-## Section 7 - Testing
+## Section 3: System Architecture 🏗️
 
-### 7.1 Test Plan Creation
-- **Objective:** Ensure all game functionality works, including pattern matching, timer, scoring, and power-ups.
-- **Scope:** Test all major features like grid rendering, timer countdown, and high score saving.
+### 3.1 Overview:
+The system is designed using a client-side JavaScript model. The primary components are the game board, drag-and-drop logic, score management, and leaderboard functionality. The game data is stored temporarily in the browser using localStorage. 🌐
 
-#### Test Environment
+### 3.2 Architectural Diagrams:
 
-| Test Case    | Input        | Expected Output            | Actual Output |
-|--------------|--------------|----------------------------|---------------|
-| **Grid Test**| 4x4 Grid     | 16 tiles on screen         | Pass          |
-| **Timer Test**| 30 seconds   | Countdown timer            | Pass          |
+- **Component Diagram:** Illustrates the separation of the game logic (game board, drag-and-drop handling) and leaderboard handling. 🧩
+- **Sequence Diagram:** Shows the flow of events when a user interacts with the game (e.g., starting the game, making moves, crushing blocks). 🔄
+- **Data Flow Diagram:** Represents how the game data (blocks, score, turns) is processed and updated during the game. 📈
 
 ---
 
-## Section 8 - Monitoring
+## Section 4: Data Dictionary 🗂️
 
-### Key Metrics to Monitor
-- **Performance Metrics:** Track game loading times, tile rendering speed.
-- **Error Metrics:** Log any JavaScript errors or UI glitches.
-- **Availability Metrics:** Ensure that the game runs without downtime.
-
----
-
-## Section 9 - Other Interfaces
-
-### 9.1 External Interface
-- **LocalStorage:** Used for saving high scores and player data.
+| **Field**    | **Notes**                               | **Type**   |
+|--------------|-----------------------------------------|------------|
+| ID           | Unique Identifier for each block       | DECIMAL    |
+| NAME         | The type of block (e.g., "Blue")       | VARCHAR    |
+| VALUE        | The value (score) output after crushing | INT        |
 
 ---
 
-## Section 10 - Extra Design Features / Outstanding Issues
+## Section 5: Data Design 💾
 
-### Future Feature
-- Multiplayer mode can be added in the future.
+### 5.1 Persistent/Static Data:
 
-### Outstanding Issue
-- Ensure that the game handles high scores when the player uses different browsers.
+- **Dataset:** LocalStorage stores player names and scores.
 
----
-
-## Section 11 – References
-- [Phaser.js Documentation](https://phaser.io/)
-- [HTML5 Game Development](https://www.html5gamedevs.com/)
+**Entities:**
+- **Player:**
+  - **Attributes:** Name, Score
+  - **Relationships:** Many-to-One with Scores
 
 ---
 
-## Section 12 – Glossary
+## Section 6: User Interface Design 🎨
 
-- **Tile:** A square on the game grid that can hold a color.
-- **Pattern:** The color combination that the player needs to match.
+### 6.1 Overview:
+The user interface consists of:
+- **Start Menu:** Options for starting a new game or viewing the leaderboard.
+- **Game Board:** Displays a 9x9 grid of colorful blocks.
+- **Score and Turn Display:** Tracks the current score and remaining turns.
+- **End Game:** Prompts the player for their name and saves the score.
+
+### 6.2 User Interface Navigation Flow:
+
+Main Menu → Start New Game → Game Board → End Game → Leaderboard → Main Menu
+
+### 6.3 Use Cases:
+
+- **Start Game:** Clicking the start button initializes the game board and sets up difficulty. 🔘
+- **Match Blocks:** Players drag and drop blocks to match adjacent tiles. 🧩
+
+---
+
+## Section 7: Testing 🧪
+
+### 7.1 Test Plan Creation:
+
+- **Objective:** Ensure the game functions correctly, including block matching, score updating, and leaderboard saving. ✅
+- **Scope:** Focus on functionality, usability, and data persistence (localStorage). 🔄
+- **Resources:** QA personnel, testing tools like Jest or Mocha. 🛠️
+- **Schedule:** Testing will take place after development of key features (Game Logic, Leaderboard). 🗓️
+- **Test Cases:** Define tests for block matching, leaderboard sorting, and game end scenarios. 📋
+
+---
+
+## Section 8: Monitoring 📊
+
+Monitoring will focus on performance metrics (load times, game interaction speed), error tracking, and user metrics (active users, session lengths). 🔍
+
+---
+
+## Section 9: Other Interfaces 🔌
+
+There are no external interfaces; all interactions are client-side.
+
+---
+
+## Section 10: Extra Design Features / Outstanding Issues 🚀
+
+None at this time.
+
+---
+
+## Section 11: References 📚
+
+- HTML5 Game Design
+- JavaScript LocalStorage
+
+---
+
+## Section 12: Glossary 📖
+
+- **LocalStorage:** A web storage API that allows saving data in the browser. 💾
+- **Leaderboard:** A display of the top players’ scores stored in localStorage. 🏆
+
+---
+
+
